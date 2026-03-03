@@ -1,0 +1,101 @@
+{
+    "name": "harrisonratcliffe/laravel-queue-watch",
+    "description": "Watch Laravel jobs, listeners and events folders for changes and automatically restart the queue worker",
+    "keywords": [
+        "Harrison Ratcliffe",
+        "laravel",
+        "laravel-queue-watch",
+        "queue",
+        "laravel queue",
+        "laravel queue watch",
+        "events",
+        "listeners",
+        "jobs",
+        "queue worker",
+        "job monitoring",
+        "filesystem watcher",
+        "watcher",
+        "process automation",
+        "continuous queue processing"
+    ],
+    "homepage": "https://github.com/harrisonratcliffe/laravel-queue-watch",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Harrison Ratcliffe",
+            "role": "Developer"
+        },
+        {
+            "name": "Rajen Trivedi",
+            "email": "laravel.rajen@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2|^8.3|^8.4",
+        "spatie/laravel-package-tools": "^1.16",
+        "illuminate/contracts": "^10.0||^11.0||^12.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.14",
+        "nunomaduro/collision": "^7.10.0||^8.1.1",
+        "larastan/larastan": "^2.9||^3.0",
+        "orchestra/testbench": "^8.22.0||^9.0.0||^10.0.0",
+        "pestphp/pest": "^2.34||^3.0||^4.0",
+        "pestphp/pest-plugin-arch": "^2.7||^3.0",
+        "pestphp/pest-plugin-laravel": "^2.3||^3.0||^4.0",
+        "phpstan/extension-installer": "^1.3",
+        "phpstan/phpstan-deprecation-rules": "^1.1",
+        "phpstan/phpstan-phpunit": "^1.3",
+        "spatie/laravel-ray": "^1.35"
+    },
+    "autoload": {
+        "psr-4": {
+            "Harrisonratcliffe\\LaravelQueueWatch\\": "src/",
+            "Harrisonratcliffe\\LaravelQueueWatch\\Database\\Factories\\": "database/factories/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Harrisonratcliffe\\LaravelQueueWatch\\Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": "@composer run prepare",
+        "clear": "@php vendor/bin/testbench package:purge-laravel-queue-watch --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": [
+            "@composer run prepare",
+            "@php vendor/bin/testbench workbench:build --ansi"
+        ],
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "@composer run build",
+            "@php vendor/bin/testbench serve"
+        ],
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Harrisonratcliffe\\LaravelQueueWatch\\LaravelQueueWatchServiceProvider"
+            ],
+            "aliases": {
+                "LaravelQueueWatch": "Harrisonratcliffe\\LaravelQueueWatch\\Facades\\LaravelQueueWatch"
+            }
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
